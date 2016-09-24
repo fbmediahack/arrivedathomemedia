@@ -56,8 +56,8 @@ public class HomeMediaApplication extends Application {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 showNotification(
-                        "How are you feeling today?",
-                        "SOME OTHER TEXT HERE");
+                        "Welcome home!",
+                        "How do you feel today?");
             }
 
             @Override
