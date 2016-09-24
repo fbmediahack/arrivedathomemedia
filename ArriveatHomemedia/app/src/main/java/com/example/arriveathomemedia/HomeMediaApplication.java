@@ -4,10 +4,9 @@ import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.RemoteInput;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Icon;
+import android.support.v4.app.NotificationCompat;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -72,40 +71,20 @@ public class HomeMediaApplication extends Application {
         PendingIntent boomIntent = PendingIntent.getActivities(this, 0,
                 new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-        RemoteInput coolRemoteInput = new RemoteInput.Builder("reply_cool")
-                .setLabel("Cool")
-                .build();
-
-        RemoteInput poopRemoteInput = new RemoteInput.Builder("reply_poop")
-                .setLabel("Poop")
-                .build();
-
-        RemoteInput boomRemoteInput = new RemoteInput.Builder("reply_boom")
-                .setLabel("Boom")
-                .build();
-
-
-        Notification.Action actionCool =
-                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.emoticon_cool),
-                        "", coolIntent)
-                        .addRemoteInput(coolRemoteInput)
+        NotificationCompat.Action actionCool =
+                new NotificationCompat.Action.Builder(R.drawable.emoticon_cool, "", coolIntent)
                         .build();
 
-        Notification.Action actionPoop =
-                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.emoticon_poop),
-                        "", poopIntent)
-                        .addRemoteInput(poopRemoteInput)
+        NotificationCompat.Action actionPoop =
+                new NotificationCompat.Action.Builder(R.drawable.emoticon_poop, "", poopIntent)
                         .build();
 
-        Notification.Action actionBoom =
-                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.boombox),
-                        "", boomIntent)
-                        .addRemoteInput(boomRemoteInput)
+        NotificationCompat.Action actionBoom =
+                new NotificationCompat.Action.Builder(R.drawable.boombox, "", boomIntent)
                         .build();
 
         Notification notification =
-                new Notification.Builder(getApplicationContext())
+                new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.readability)
                         .setContentTitle(title)
                         .setContentText(message)
