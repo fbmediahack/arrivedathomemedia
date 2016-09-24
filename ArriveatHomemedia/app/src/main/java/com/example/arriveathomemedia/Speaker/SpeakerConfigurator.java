@@ -66,6 +66,7 @@ public class SpeakerConfigurator {
         if (hAudioControl.isPlaying()) {
             hAudioControl.stop();
         }
+        hAudioControl.setVolumeDevice(deviceId, 25);
         hAudioControl.playCAF(path, title, false);
     }
 
