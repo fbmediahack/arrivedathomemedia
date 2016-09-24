@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
+import com.example.arriveathomemedia.easybulb.EasyBulbConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SpeakerConfigurator speakerConfigurator;
+    private EasyBulbConfig easyBulbConfig;
     private static final int MOOD_COOL = 0;
     private static final int MOOD_POOP = 1;
     private static final int MOOD_BOOM = 2;
@@ -66,20 +68,27 @@ public class MainActivity extends AppCompatActivity
         speakerConfigurator.startSpeaker();
         speakerConfigurator.findSpeakers();
 
+        easyBulbConfig = new EasyBulbConfig();
+
         onMoodChange(MOOD_POOP);
     }
 
-    private void onMoodChange(int mood){
-        switch (mood){
+    private void onMoodChange(int mood) {
+        String externalStorage = Environment.getExternalStorageDirectory() + "/";
+        switch (mood) {
             case MOOD_COOL:
+                easyBulbConfig.cool();
+                speakerConfigurator.startPlaying(externalStorage + "cool.mp3", "Cool music");
                 layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_cool_color));
                 break;
             case MOOD_POOP:
-                String path = Environment.getExternalStorageDirectory() + "/three.mp3";
-                speakerConfigurator.startPlaying(path, "Some title");
+                easyBulbConfig.poop();
+                speakerConfigurator.startPlaying(externalStorage + "poop.mp3", "Poop music");
                 layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_poop_color));
                 break;
             case MOOD_BOOM:
+                easyBulbConfig.boom();
+                speakerConfigurator.startPlaying(externalStorage + "boom.mp3", "Boom!");
                 layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_boom_color));
                 break;
         }

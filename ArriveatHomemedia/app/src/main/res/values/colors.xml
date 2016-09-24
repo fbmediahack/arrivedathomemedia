@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="mood_cool_color">#ff0000</color>
-    <color name="mood_poop_color">#00ff00</color>
-    <color name="mood_boom_color">#00ff00</color>
+    <color name="mood_cool_color">#abfeff</color>
+    <color name="mood_poop_color">#edcd1b</color>
+    <color name="mood_boom_color">#00ed06</color>
 </resources>
