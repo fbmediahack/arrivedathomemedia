@@ -20,15 +20,17 @@ public class EasyBulbConfig {
     public static final int COLOR_POOP = 143;
 
 
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final ExecutorService executorService;
 
-    private final WiFiBox wifiBox = getWifiBox();
+    private final WiFiBox wifiBox;
 
     private final Context ctx;
 
 
     public EasyBulbConfig(Context ctx) {
         this.ctx = ctx;
+        this.executorService = Executors.newSingleThreadExecutor();
+        this.wifiBox = getWifiBox();
     }
 
     public void on() {
@@ -73,6 +75,7 @@ public class EasyBulbConfig {
             public void run() {
 
                 try {
+                    wifiBox.on();
                     wifiBox.color(COLOR_COOL);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -89,6 +92,7 @@ public class EasyBulbConfig {
             public void run() {
 
                 try {
+                    wifiBox.on();
                     wifiBox.color(COLOR_POOP);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -110,6 +114,12 @@ public class EasyBulbConfig {
 //                }
 //            }
 //        });
+
+        try {
+            wifiBox.on();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         startSensorListener();
     }
