@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.RemoteInput;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -57,23 +58,47 @@ public class HomeMediaApplication extends Application {
     public void showNotification(String title, String message) {
         Intent notifyIntent = new Intent(this, MainActivity.class);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivities(this, 0,
+
+        PendingIntent coolIntent = PendingIntent.getActivities(this, 0,
+                new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent poopIntent = PendingIntent.getActivities(this, 0,
+                new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent boomIntent = PendingIntent.getActivities(this, 0,
                 new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        String KEY_TEXT_REPLY = "key_text_reply";
-        String replyLabel = getResources().getString(R.string.reply_label);
-        RemoteInput remoteInput = new RemoteInput.Builder(KEY_TEXT_REPLY)
-                .setLabel(replyLabel)
+        RemoteInput coolRemoteInput = new RemoteInput.Builder("reply_cool")
+                .setLabel("Cool")
+                .build();
+
+        RemoteInput poopRemoteInput = new RemoteInput.Builder("reply_poop")
+                .setLabel("Poop")
+                .build();
+
+        RemoteInput boomRemoteInput = new RemoteInput.Builder("reply_boom")
+                .setLabel("Boom")
                 .build();
 
 
         Notification.Action actionCool =
-                new Notification.Action.Builder(R.drawable.emoticon_cool,
-                        "", pendingIntent)
-                        .addRemoteInput(remoteInput)
+                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.emoticon_cool),
+                        "", coolIntent)
+                        .addRemoteInput(coolRemoteInput)
                         .build();
 
+        Notification.Action actionPoop =
+                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.emoticon_poop),
+                        "", poopIntent)
+                        .addRemoteInput(poopRemoteInput)
+                        .build();
+
+        Notification.Action actionBoom =
+                new Notification.Action.Builder(Icon.createWithResource(this, R.drawable.boombox),
+                        "", boomIntent)
+                        .addRemoteInput(boomRemoteInput)
+                        .build();
 
         Notification notification =
                 new Notification.Builder(getApplicationContext())
@@ -81,6 +106,8 @@ public class HomeMediaApplication extends Application {
                         .setContentTitle(title)
                         .setContentText(message)
                         .addAction(actionCool)
+                        .addAction(actionPoop)
+                        .addAction(actionBoom)
                         .build();
 
 
