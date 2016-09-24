@@ -1,10 +1,10 @@
 package com.example.arriveathomemedia;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,12 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
 import com.estimote.sdk.SystemRequirementsChecker;
+import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SpeakerConfigurator speakerConfigurator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ButterKnife.bind(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +53,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SpeakerConfigurator speakerConfigurator = new SpeakerConfigurator();
-        speakerConfigurator.startSpearker();
+        speakerConfigurator = new SpeakerConfigurator();
+        speakerConfigurator.startSpeaker();
         speakerConfigurator.findSpeakers();
     }
 
@@ -86,6 +95,31 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.start_playing)
+    public void startPlaying() {
+        Timber.d("Started playing");
+        String path = Environment.getExternalStorageDirectory() + "/Download/Crazy game .mp3";
+        speakerConfigurator.startPlaying(path, "Some title");
+    }
+
+    @OnClick(R.id.stop_playing)
+    public void stopPlaying() {
+        Timber.d("Stopped playing");
+        speakerConfigurator.stopPlaying();
+    }
+
+    @OnClick(R.id.volume_up)
+    public void volumeUp() {
+        Timber.d("Volume up");
+        speakerConfigurator.volumeUp();
+    }
+
+    @OnClick(R.id.volume_down)
+    public void volumeDown() {
+        Timber.d("Volume Down");
+        speakerConfigurator.volumeDown();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -1,8 +1,6 @@
 package com.example.arriveathomemedia.Speaker;
 
 
-import android.os.Environment;
-
 import com.harman.hkwirelessapi.AudioCodecHandler;
 import com.harman.hkwirelessapi.HKWirelessHandler;
 import com.harman.hkwirelessapi.HKWirelessListener;
@@ -17,15 +15,13 @@ public class SpeakerConfigurator {
 
     AudioCodecHandler hAudioControl = new AudioCodecHandler();
 
+    private static long deviceId = 211059561019568l;
 
-    public void startSpearker() {
+
+    public void startSpeaker() {
 
         // Initialize the HKWControlHandler and start wireless audio
         hControlHandler.initializeHKWirelessController(KEY);
-    }
-
-    public void findSpeakers() {
-        hControlHandler.refreshDeviceInfoOnce();
 
         hControlHandler.registerHKWirelessControllerListener(new HKWirelessListener() {
             @Override
@@ -59,9 +55,33 @@ public class SpeakerConfigurator {
             }
         });
 
-        hControlHandler.addDeviceToSession(211059561019568l);
-        String path = Environment.getExternalStorageDirectory() + "/Download/Crazy game .mp3";
-        hAudioControl.playCAF(path, "Some title", false);
+        hControlHandler.addDeviceToSession(deviceId);
+    }
+
+    public void findSpeakers() {
+        hControlHandler.refreshDeviceInfoOnce();
+    }
+
+    public void startPlaying(String path, String title) {
+        hAudioControl.playCAF(path, title, false);
+    }
+
+    public void stopPlaying() {
+        hAudioControl.stop();
+    }
+
+    public void volumeUp() {
+        int volume = hAudioControl.getDeviceVolume(deviceId);
+        Timber.d("Current volume at %d", volume);
+        volume += 5;
+        hAudioControl.setVolumeDevice(deviceId, volume);
+    }
+
+    public void volumeDown() {
+        int volume = hAudioControl.getDeviceVolume(deviceId);
+        Timber.d("Current volume at %d", volume);
+        volume -= 5;
+        hAudioControl.setVolumeDevice(deviceId, volume);
     }
 
 
