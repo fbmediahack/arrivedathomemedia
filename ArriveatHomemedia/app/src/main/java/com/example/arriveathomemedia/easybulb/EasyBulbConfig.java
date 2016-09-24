@@ -115,11 +115,7 @@ public class EasyBulbConfig {
 //            }
 //        });
 
-        try {
-            wifiBox.on();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        on();
 
         startSensorListener();
     }

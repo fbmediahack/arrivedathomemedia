@@ -63,6 +63,9 @@ public class SpeakerConfigurator {
     }
 
     public void startPlaying(String path, String title) {
+        if (hAudioControl.isPlaying()) {
+            hAudioControl.stop();
+        }
         hAudioControl.playCAF(path, title, false);
     }
 

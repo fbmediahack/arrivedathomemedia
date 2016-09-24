@@ -11,6 +11,8 @@ import android.support.v4.app.NotificationCompat;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
+import com.example.arriveathomemedia.easybulb.EasyBulbConfig;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,11 +26,19 @@ import timber.log.Timber;
 public class HomeMediaApplication extends Application {
 
     private BeaconManager beaconManager;
+    private SpeakerConfigurator speakerConfigurator;
+    private EasyBulbConfig easyBulbConfig;
 
     @Override public void onCreate() {
         super.onCreate();
 
         Timber.plant(new Timber.DebugTree());
+
+        easyBulbConfig = new EasyBulbConfig(this);
+
+        speakerConfigurator = new SpeakerConfigurator();
+        speakerConfigurator.startSpeaker();
+        speakerConfigurator.findSpeakers();
 
         beaconManager = new BeaconManager(getApplicationContext());
 
@@ -99,5 +109,13 @@ public class HomeMediaApplication extends Application {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notification);
+    }
+
+    public SpeakerConfigurator getSpeakerConfigurator() {
+        return speakerConfigurator;
+    }
+
+    public EasyBulbConfig getEasyBulbConfig() {
+        return easyBulbConfig;
     }
 }
