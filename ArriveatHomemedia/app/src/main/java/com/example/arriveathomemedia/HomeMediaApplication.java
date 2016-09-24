@@ -59,17 +59,16 @@ public class HomeMediaApplication extends Application {
     }
 
     public void showNotification(String title, String message) {
-        Intent notifyIntent = new Intent(this, MainActivity.class);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Intent notifyIntent = new Intent();
 
-        PendingIntent coolIntent = PendingIntent.getActivities(this, 0,
-                new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent coolIntent = PendingIntent.getBroadcast(this, 0,
+                notifyIntent.setAction(Mood.COOL), PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent poopIntent = PendingIntent.getActivities(this, 0,
-                new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent poopIntent = PendingIntent.getBroadcast(this, 1,
+                notifyIntent.setAction(Mood.POOP), PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent boomIntent = PendingIntent.getActivities(this, 0,
-                new Intent[]{notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent boomIntent = PendingIntent.getBroadcast(this, 2,
+                notifyIntent.setAction(Mood.BOOM), PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Action actionCool =
                 new NotificationCompat.Action.Builder(R.drawable.emoticon_cool, "", coolIntent)
