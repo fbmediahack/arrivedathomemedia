@@ -16,6 +16,8 @@ import com.estimote.sdk.Region;
 import java.util.List;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 /**
  * Created by ana on 24/09/16.
  */
@@ -26,6 +28,8 @@ public class HomeMediaApplication extends Application {
 
     @Override public void onCreate() {
         super.onCreate();
+
+        Timber.plant(new Timber.DebugTree());
 
         beaconManager = new BeaconManager(getApplicationContext());
 

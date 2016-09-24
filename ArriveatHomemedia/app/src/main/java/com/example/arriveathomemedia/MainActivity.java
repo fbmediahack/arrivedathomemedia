@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
 import com.estimote.sdk.SystemRequirementsChecker;
 
 public class MainActivity extends AppCompatActivity
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SpeakerConfigurator speakerConfigurator = new SpeakerConfigurator();
+        speakerConfigurator.startSpearker();
+        speakerConfigurator.findSpeakers();
     }
 
     @Override
