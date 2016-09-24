@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,10 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.estimote.sdk.SystemRequirementsChecker;
 import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SpeakerConfigurator speakerConfigurator;
+    private static final int MOOD_COOL = 0;
+    private static final int MOOD_POOP = 1;
+    private static final int MOOD_BOOM = 2;
+
+    @BindView(R.id.content_main)
+    RelativeLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,20 @@ public class MainActivity extends AppCompatActivity
         speakerConfigurator = new SpeakerConfigurator();
         speakerConfigurator.startSpeaker();
         speakerConfigurator.findSpeakers();
+    }
+
+    private void onMoodChange(int mood){
+        switch (mood){
+            case MOOD_COOL:
+                layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_cool_color));
+                break;
+            case MOOD_POOP:
+                layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_poop_color));
+                break;
+            case MOOD_BOOM:
+                layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_boom_color));
+                break;
+        }
     }
 
     @Override

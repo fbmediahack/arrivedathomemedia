@@ -13,39 +13,39 @@
     tools:context="com.example.arriveathomemedia.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <LinearLayout
+    <ImageButton
+        android:id="@+id/start_playing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/play" />
+
+
+    <ImageButton
+        android:id="@+id/volume_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/start_playing"
+        android:background="@android:color/transparent"
+        android:src="@drawable/volume_up" />
+
+    <ImageButton
+        android:id="@+id/volume_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/start_playing"
+        android:background="@android:color/transparent"
+        android:src="@drawable/volume_down" />
+
+
+    <ImageButton
+        android:id="@+id/stop_playing"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
-
-        <Button
-            android:id="@+id/start_playing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/start_playing" />
-
-        <Button
-            android:id="@+id/stop_playing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/stop_playing" />
-
-        <Button
-            android:id="@+id/volume_up"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/volume_up" />
-
-        <Button
-            android:id="@+id/volume_down"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/volume_down" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/volume_up"
+        android:background="@android:color/transparent"
+        android:src="@drawable/stop" />
 </RelativeLayout>
