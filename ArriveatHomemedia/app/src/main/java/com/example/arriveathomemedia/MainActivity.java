@@ -68,9 +68,16 @@ public class MainActivity extends AppCompatActivity
         speakerConfigurator.startSpeaker();
         speakerConfigurator.findSpeakers();
 
-        easyBulbConfig = new EasyBulbConfig();
+        easyBulbConfig = new EasyBulbConfig(this);
 
         onMoodChange(MOOD_POOP);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        easyBulbConfig.off();
     }
 
     private void onMoodChange(int mood) {
