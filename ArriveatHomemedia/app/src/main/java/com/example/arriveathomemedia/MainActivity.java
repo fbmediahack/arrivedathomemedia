@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.arriveathomemedia.Speaker.SpeakerConfigurator;
+import com.estimote.sdk.SystemRequirementsChecker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +47,13 @@ public class MainActivity extends AppCompatActivity
         SpeakerConfigurator speakerConfigurator = new SpeakerConfigurator();
         speakerConfigurator.startSpearker();
         speakerConfigurator.findSpeakers();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SystemRequirementsChecker.checkWithDefaultDialogs(this);
     }
 
     @Override
