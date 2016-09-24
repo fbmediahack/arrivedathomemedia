@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity
         speakerConfigurator = new SpeakerConfigurator();
         speakerConfigurator.startSpeaker();
         speakerConfigurator.findSpeakers();
+
+        onMoodChange(MOOD_POOP);
     }
 
     private void onMoodChange(int mood){
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity
                 layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_cool_color));
                 break;
             case MOOD_POOP:
+                String path = Environment.getExternalStorageDirectory() + "/three.mp3";
+                speakerConfigurator.startPlaying(path, "Some title");
                 layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.mood_poop_color));
                 break;
             case MOOD_BOOM:
